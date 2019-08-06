@@ -1,3 +1,4 @@
+//Example of a class (private members, and constructors/destructors)
 #include <iostream>
 using namespace std;
 
@@ -7,7 +8,7 @@ private:
 public:
   Cat(int initAge); //constructor
   ~Cat();           //destructor
-  int getAge() const;
+  int getAge() const; //Make sure that this functions can't change class's members
 };
 
 //Cat's constructor define
