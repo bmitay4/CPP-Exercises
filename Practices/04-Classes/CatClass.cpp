@@ -6,14 +6,19 @@ class Cat{
 private:
   int itsAge;
 public:
-  Cat(int initAge); //constructor
+  Cat();            //default constructor
+  Cat(int initAge); //init constructor
   ~Cat();           //destructor
-  int getAge() const; //Make sure that this functions can't change class's members
+  int getAge() const; //The const word make sure that this functions can't change class's members
 };
 
-//Cat's constructor define
+//Cat's init constructor define
 Cat::Cat(int initAge){
   itsAge = initAge;
+}
+//Cat's default constructor define
+Cat::Cat(){
+  itsAge = 0;
 }
 //Cat's destructor define (no action needed)
 Cat::~Cat(){
@@ -23,6 +28,6 @@ int Cat::getAge() const{
   return itsAge;
 }
 int main(){
-  //Some main..
+  //Some code..
   return 0;
 }
