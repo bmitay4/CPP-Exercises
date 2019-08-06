@@ -1,4 +1,4 @@
-//Example of a class (private members, and constructors/destructors)
+//Example of a class (private members, function and constructors/destructors)
 #include <iostream>
 using namespace std;
 
