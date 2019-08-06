@@ -1,4 +1,4 @@
-//Example of a class
+//Example of a simple class (no private members, no function and no constructors)
 #include <iostream>
 using namespace std;
 class Cat{

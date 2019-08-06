@@ -1,3 +1,4 @@
+//Example of an advance class (private members, function but no constructors)
 #include <iostream>
 using namespace std;
 class Cat{
