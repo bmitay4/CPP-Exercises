@@ -1,4 +1,3 @@
-//Thanks for [erelsgl](https://github.com/erelsgl/ariel-cpp-5779/blob/master/01-what-is-cpp/3-namespace/namespace.cpp)
 //Exmaple of using namespace and the importancy of using it correctly
 #include <iostream>
 
