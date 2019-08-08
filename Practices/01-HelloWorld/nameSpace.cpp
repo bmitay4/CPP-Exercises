@@ -25,3 +25,12 @@ int main() {
 	def::printx();
 	std::cout << abc::xyz::w << std::endl;
 }
+
+/*
+OUTPUT
+
+123
+456
+5
+
+*/
