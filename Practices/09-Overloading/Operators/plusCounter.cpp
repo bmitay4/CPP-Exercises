@@ -8,7 +8,7 @@ public:
   ~Counter();
   int getValue() const;
   void setValue(int num);
-  const Counter& operator++();
+  const Counter& operator++();    //prefix overload operator
 private:
   int itsValue;
 };
@@ -16,7 +16,6 @@ Counter::Counter():
 itsValue(1){
 };
 Counter::~Counter(){
-
 }
 const Counter& Counter::operator++(){
   ++itsValue;
