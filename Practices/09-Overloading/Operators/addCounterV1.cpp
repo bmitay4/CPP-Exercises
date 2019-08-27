@@ -4,9 +4,9 @@ using namespace std;
 
 class Counter{
 public:
-  Counter();
-  Counter(int value);
-  ~Counter(){};
+  Counter();          //Defualt Constructor
+  Counter(int value); //Initial Constructor
+  ~Counter(){};       //Destructor
   int getValue() const {return itsValue;}
   void setValue(int x){itsValue = x;}
   Counter Add(const Counter &);
