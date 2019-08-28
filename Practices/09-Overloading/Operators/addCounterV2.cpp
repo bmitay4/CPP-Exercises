@@ -46,5 +46,10 @@ int main(){
   cout << "Counter varOne value: " << varOne.getValue() << endl;
   cout << "Counter varTwo value: " << varTwo.getValue() << endl;
   cout << "Counter varThree value: " << varThree.getValue() << endl;
+
+  //This can be done thanks to Initial Constructor we've created
+  Counter varFour = 5;
+  cout << "Counter varFour value: " << varFour.getValue() << endl;
+
   return 0;
 }
