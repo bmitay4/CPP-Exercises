@@ -1,4 +1,5 @@
 #include "PhoneticFinder.hpp"
+
 #include <bits/stdc++.h>
 
 #include <tr1/unordered_map>
@@ -18,7 +19,8 @@ string phonetic::find(string text, const char value[]) {
             if (searchForChanges(word, value)) return word;
     }
     string tempValue = value;
-    throw std::invalid_argument("Did not find the word '" + tempValue +"' in the text");
+    throw std::invalid_argument("Did not find the word '" + tempValue +
+                                "' in the text");
 }
 // Verify if the string contains simply the given word
 bool phonetic::isWordEqual(string word, string value) {
