@@ -20,8 +20,7 @@ string phonetic::find(string text, const char value[]) {
     }
     string tempValue = value;
     throw std::invalid_argument("Did not find the word '" + tempValue +"' in the text");
-}const char *std::exception::what() const noexcept
-
+}
 // Verify if the string contains simply the given word
 bool phonetic::isWordEqual(string word, string value) {
     if ((word.compare(value)) == 0)
