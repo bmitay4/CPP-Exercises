@@ -1,5 +1,4 @@
 #include "PhoneticFinder.hpp"
-
 #include <bits/stdc++.h>
 
 #include <tr1/unordered_map>
