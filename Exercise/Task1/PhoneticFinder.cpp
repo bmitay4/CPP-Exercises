@@ -17,7 +17,7 @@ struct MyException : public std::exception {
     const char* what() const throw() { return valueStr.data(); }
 };
 // Main function
-string phonetic::find(string text, const char value[]) {
+string phonetic::find(string text, string value) {
     std::istringstream iss(text);
     std::vector<std::string> results(std::istream_iterator<std::string>{iss},
                                      std::istream_iterator<std::string>());

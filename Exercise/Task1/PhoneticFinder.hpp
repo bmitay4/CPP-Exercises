@@ -6,7 +6,7 @@
 using namespace std;
 
 namespace phonetic {
-string find(string, const char[]);
+string find(string, string);
 void setsChecksMap();
 bool isWordEqual(string);
 bool lengthEqual();
