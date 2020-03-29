@@ -5,32 +5,34 @@
 #include <tr1/unordered_map>
 
 using namespace phonetic;
-unordered_multimap<char, string> setsMap;
 
+unordered_map<char, string> setsMap;
+string globalValue, globalWord;
+string testedWord;
+
+// Struct conatins the error message
+struct MyException : public std::exception {
+    const string valueStr =
+        "Did not find the word '" + globalValue + "' in the text";
+    const char* what() const throw() { return valueStr.data(); }
+};
+// Main function
 string phonetic::find(string text, const char value[]) {
     std::istringstream iss(text);
     std::vector<std::string> results(std::istream_iterator<std::string>{iss},
                                      std::istream_iterator<std::string>());
-    setsMapChecks();
+    globalValue = value;
+    setsChecksMap();
+
     for (std::string word : results) {
-        if (isWordEqual(word, value))
-            return word;
-        else if (word.length() == strlen(value))
-            if (searchForChanges(word, value)) return word;
+        globalWord = word;
+        if (isWordEqual(word)) return globalWord;
+        if (lengthEqual() && searchForChanges()) return globalWord;
     }
-    string tempValue = value;
-    throw std::invalid_argument("Did not find the word '" + tempValue +
-                                "' in the text");
-}
-// Verify if the string contains simply the given word
-bool phonetic::isWordEqual(string word, string value) {
-    if ((word.compare(value)) == 0)
-        return true;
-    else
-        return false;
+    throw MyException();
 }
 // Build a map contains all sets
-void phonetic::setsMapChecks() {
+void phonetic::setsChecksMap() {
     // v,w
     setsMap.insert({'v', "w"});
     setsMap.insert({'w', "v"});
@@ -41,7 +43,6 @@ void phonetic::setsMapChecks() {
     // g,j
     setsMap.insert({'g', "j"});
     setsMap.insert({'j', "g"});
-
     // c,k,q
     setsMap.insert({'c', "kq"});
     setsMap.insert({'k', "cq"});
@@ -59,45 +60,70 @@ void phonetic::setsMapChecks() {
     setsMap.insert({'i', "y"});
     setsMap.insert({'y', "i"});
 }
+// Verify if the string contains simply the given word
+bool phonetic::isWordEqual(string str) {
+    if ((str.compare(globalValue)) == 0) return true;
+    return false;
+}
+bool phonetic::lengthEqual() {
+    if (globalWord.length() == globalValue.length()) return true;
+    return false;
+}
 // If both of the words are the same, look for the differents by map
-bool phonetic::searchForChanges(string word, string value) {
-    if (verifyUpperLowerChar(word, value)) return true;
-    if (isLettersMixed(word, value)) return true;
+bool phonetic::searchForChanges() {
+    if (testUpperLower()) return true;
+    if (testMixLetters()) return true;
     return false;
 }
 // Look for upper/lower differents
-bool phonetic::verifyUpperLowerChar(string word, string value) {
+bool phonetic::testUpperLower() {
+    resizeStr();
     unsigned i;
+    char wordChar, valueChar;
 
-    for (i = 0; i < word.length(); ++i) {
-        if (word.at(i) != value.at(i)) {
-            if (islower(word.at(i)) && isupper(value.at(i))) {
-                word.at(i) = toupper(word.at(i));
-            } else if (islower(value.at(i)) && isupper(word.at(i))) {
-                word.at(i) = tolower(word.at(i));
-            }
-        }
+    for (i = 0; i < globalWord.length(); ++i) {
+        wordChar = globalWord.at(i);
+        valueChar = globalValue.at(i);
+
+        if (wordChar != valueChar) {
+            if (toupper(wordChar) == valueChar ||
+                tolower(wordChar) == valueChar)
+                testedWord[i] = valueChar;
+        } else
+            testedWord[i] = wordChar;
     }
-    if (isWordEqual(word, value)) return true;
+    if (isWordEqual(testedWord)) return true;
     return false;
 }
 // Look for a mismatch
-bool phonetic::isLettersMixed(string word, string value) {
-    unsigned k;
+bool phonetic::testMixLetters() {
+    unsigned i, j;
+    char wordChar, valueChar, tempChar;
+    string tempStr;
 
-    for (k = 0; k < word.length(); ++k) {
-        if (word.at(k) != value.at(k)) {
-            auto search = setsMap.find(value.at(k));
+    for (i = 0; i < globalWord.length(); ++i) {
+        wordChar = globalWord.at(i);
+        valueChar = globalValue.at(i);
+
+        if (!testedWord[i]) {
+            auto search = setsMap.find(tolower(valueChar));
+
             if (search != setsMap.end()) {
-                string tempValue = search->second;
-                unsigned i;
+                tempStr = search->second;
 
-                for (i = 0; i < tempValue.length(); ++i) {
-                    if (word.at(k) == tempValue.at(i)) return true;
+                for (j = 0; j < tempStr.length(); ++j) {
+                    tempChar = tempStr.at(j);
+                    if (wordChar == tempChar || tolower(wordChar) == tempChar)
+                        testedWord[i] = valueChar;
                 }
-            } else
-                return false;
+            }
         }
     }
+    if (isWordEqual(testedWord)) return true;
     return false;
+}
+// Reset and resize the global string
+void phonetic::resizeStr() {
+    testedWord = "";
+    testedWord.resize(globalWord.length());
 }

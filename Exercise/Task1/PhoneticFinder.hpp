@@ -6,12 +6,14 @@
 using namespace std;
 
 namespace phonetic {
-string find(string text, const char[]);
-void setsMapChecks();
-bool isWordEqual(string word, string value);
-bool searchForChanges(string word, string value);
-bool verifyUpperLowerChar(string, string); 
-bool isLettersMixed(string, string);
+string find(string, const char[]);
+void setsChecksMap();
+bool isWordEqual(string);
+bool lengthEqual();
+void resizeStr();
+bool searchForChanges();
+bool testUpperLower(); 
+bool testMixLetters();
 }  // namespace phonetic
 
 #endif
